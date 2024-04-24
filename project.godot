@@ -17,6 +17,15 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
+[editor]
+
+movie_writer/movie_file="/Users/brandonchang/Games/mononym-square/my_movie.avi"
+
 [editor_plugins]
 
 enabled=PackedStringArray()
