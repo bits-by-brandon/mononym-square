@@ -118,8 +118,8 @@ variation_opentype = {
 
 [sub_resource type="Gradient" id="Gradient_ij2ds"]
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0.118881, 0.762238)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0.435315, 0.627622)
+colors = PackedColorArray(0, 0.25, 1, 1, 0.200667, 0.86, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -148,34 +148,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="Renderer" type="Control" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_84q8o")
 font = SubResource("FontVariation_hamw1")
-font_size = 51
+text = "MONONYM                    "
+font_size = 38
 font_size_beat_curve = null
 letter_offset = 1
 letter_offset_beat_curve = null
 grid_size_x = 68.669
 grid_size_x_beat_curve = null
-grid_size_y = 69.106
+grid_size_y = 50.0
 grid_size_y_beat_curve = null
 colors = SubResource("Gradient_ij2ds")
-font_size = 51
+font_size = 38
 font_size_beat_curve = null
-zoom_x = 1.0
+zoom_x = 0.084
 zoom_x_beat_curve = null
-zoom_y = 1.0
+zoom_y = 0.152
 zoom_y_beat_curve = null
-noise_speed = 11.853
+noise_speed = 11.741
 noise_speed_beat_curve = null
+velocity_x = 35.171
+velocity_x_beat_curve = null
+velocity_y = -21.805
+velocity_y_beat_curve = null
 font_width = 212.739
 font_weight = 350.478

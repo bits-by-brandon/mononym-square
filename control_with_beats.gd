@@ -6,24 +6,12 @@ extends Control
 # Knobs
 var font_size := 16
 var letter_offset := 3
-var grid_size_x := 20.0:
-	set(value):
-		grid_size_x = value
-		grid_size.x = value
-var grid_size_y := 20.0:
-	set(value):
-		grid_size_y = value
-		grid_size.y = value
+var grid_size_x := 20.0
+var grid_size_y := 20.0
 var noise_speed := 30.0
 var colors: Gradient = Gradient.new()
-var zoom_x := 1.0:
-	set(value):
-		zoom.x = value
-		zoom_x = value
-var zoom_y := 1.0:
-	set(value):
-		zoom.y = value
-		zoom_y = value
+var zoom_x := 1.0
+var zoom_y := 1.0
 var velocity_x := 0.0
 var velocity_y := 0.0
 
@@ -35,8 +23,6 @@ var WIDTH_KEY = text_server.name_to_tag("wdth")
 var beat_bpm := 120
 var beat_curves: Dictionary = {}
 
-var grid_size: Vector2 = Vector2(grid_size_x, grid_size_y)
-var zoom := Vector2(zoom_x, zoom_y)
 var noise: Noise
 var elapsed_time: float = 0.0
 var noise_time: float = 0.0
@@ -56,14 +42,16 @@ func _get_property_list():
 
 	var properties = []
 	export_range(properties, &"font_size", 1, 100, 1)
-	export_range(properties, &"letter_offset", 1, 100, 1)
-	export_range(properties, &"grid_size_x", 1.0, 100.0, 0.01)
-	export_range(properties, &"grid_size_y", 1.0, 100.0, 0.01)
+	export_range(properties, &"letter_offset", 0, 10, 1)
+	export_range(properties, &"grid_size_x", 10.0, 300.0, 0.01, true)
+	export_range(properties, &"grid_size_y", 10.0, 300.0, 0.01, true)
 	export_colors(properties)
 	export_range(properties, &"font_size", 1, 100, 1)
-	export_range(properties, &"zoom_x", 1.0, 100.0, 0.01)
-	export_range(properties, &"zoom_y", 1.0, 100.0, 0.01)
-	export_range(properties, &"noise_speed", 1, 100, 0.01)
+	export_range(properties, &"zoom_x", 0.01, 10.0, 0.01, true)
+	export_range(properties, &"zoom_y", 0.01, 10.0, 0.01, true)
+	export_range(properties, &"noise_speed", 1.0, 200.0, .01)
+	export_range(properties, &"velocity_x", -100.0, 100.0, 0.01)
+	export_range(properties, &"velocity_y", -100.0, 100.0, 0.01)
 
 	properties.append({
 		"name": "font_width",
@@ -111,7 +99,7 @@ func _get(property: StringName):
 	if property == "font_weight":
 		return font.variation_opentype[WEIGHT_KEY]
 
-func export_range(properties: Array, prop_name: String, prop_min: float, prop_max: float, step: float=0.01):
+func export_range(properties: Array, prop_name: String, prop_min: float, prop_max: float, step: float=0.01, exp: bool=false):
 	properties.append({
 		"name": prop_name.capitalize(),
 		"type": TYPE_NIL,
@@ -124,7 +112,7 @@ func export_range(properties: Array, prop_name: String, prop_min: float, prop_ma
 		"type": TYPE_FLOAT,
 		"usage": PROPERTY_USAGE_DEFAULT,
 		"hint": PROPERTY_HINT_RANGE,
-		"hint_string": "%.2f, %.2f, %.2f" % [prop_min, prop_max, step]
+		"hint_string": "%.2f, %.2f, %.2f" % [prop_min, prop_max, step] + (", exp" if exp else "")
 	})
 
 	properties.append({
@@ -188,7 +176,6 @@ func export_colors(properties: Array):
 	})
 
 func _ready():
-	print_debug(font.variation_opentype)
 	noise = FastNoiseLite.new()
 	noise.seed = 1
 
@@ -209,22 +196,28 @@ func _process(delta):
 func _draw():
 	var letter_index = 0
 	var letter_index_2 = 0
-	for y in range(0, size.y, grid_size.y):
-		for x in range(0, size.x, grid_size.x):
-			var noise_val = noise.get_noise_3d(x * zoom.x + offset.x, y * zoom.y + offset.y, noise_time)
-			var letter := text[letter_index % text.length()]
-			var unicode := text.unicode_at(letter_index % text.length())
-			var width := font.get_char_size(unicode, font_size).x
-			draw_string(
+	var y := 0.0
+	var x := 0.0
+
+	while y < size.y:
+		x = 0.0
+		while x < size.x:
+			var noise_val = noise.get_noise_3d(x * zoom_x + offset.x, y * zoom_y + offset.y, noise_time)
+			var i := int(letter_index % text.length())
+			var letter := text[i]
+			var unicode := text.unicode_at(i)
+			var char_size := font.get_char_size(unicode, font_size)
+			draw_char(
 				font,
-				Vector2(x - width / 2, y),
+				Vector2(x - char_size.x / 2, y + char_size.y / 2),
 				letter,
-				HORIZONTAL_ALIGNMENT_LEFT,
-				- 1,
 				font_size,
 				colors.sample(remap(noise_val, -1, 1, 0, 1))
 			)
 
 			letter_index += 1
+			x += grid_size_x
+
 		letter_index_2 += letter_offset
 		letter_index = letter_index_2
+		y += grid_size_y
