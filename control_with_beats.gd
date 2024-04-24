@@ -212,10 +212,13 @@ func _draw():
 	for y in range(0, size.y, grid_size.y):
 		for x in range(0, size.x, grid_size.x):
 			var noise_val = noise.get_noise_3d(x * zoom.x + offset.x, y * zoom.y + offset.y, noise_time)
+			var letter := text[letter_index % text.length()]
+			var unicode := text.unicode_at(letter_index % text.length())
+			var width := font.get_char_size(unicode, font_size).x
 			draw_string(
 				font,
-				Vector2(x, y),
-				text[letter_index % text.length()],
+				Vector2(x - width / 2, y),
+				letter,
 				HORIZONTAL_ALIGNMENT_LEFT,
 				- 1,
 				font_size,
