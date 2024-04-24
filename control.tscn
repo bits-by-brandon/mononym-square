@@ -1,263 +1,59 @@
-[gd_scene load_steps=8 format=3 uid="uid://ci0177kti8ixq"]
+[gd_scene load_steps=10 format=3 uid="uid://ci0177kti8ixq"]
 
 [ext_resource type="AudioStream" uid="uid://dvkb4qeak3sr7" path="res://assets/audio/music/lbH7Ox30BsUXnjfWBVrQurPhD6su98WGafYq7Cc1.mp3" id="1_omnmv"]
 [ext_resource type="Script" path="res://control_with_beats.gd" id="2_84q8o"]
-[ext_resource type="FontFile" uid="uid://16q5t5ntm8ye" path="res://assets/fonts/JetbrainsMono/jetbrains-mono-all-700-normal.woff" id="3_yw7wu"]
+[ext_resource type="FontFile" uid="uid://cmx351ib5we4m" path="res://assets/fonts/Fixture/FixtureVariable.ttf" id="3_6h6r8"]
 
 [sub_resource type="Animation" id="Animation_radq2"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Renderer:grid_size_x")
+tracks/0/path = NodePath("Renderer:font_width")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [80.0]
+"values": [212.739]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Renderer:grid_size_y")
+tracks/1/path = NodePath("Renderer:font_weight")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [80.0]
+"values": [350.478]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Renderer:end_color")
+tracks/2/path = NodePath("Renderer:grid_size_x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Renderer:velocity_x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-33.33]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Renderer:noise_speed")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [20.05]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Renderer:zoom_x")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Renderer:zoom_y")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Renderer:velocity_y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Renderer:start_color_threshold")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.0]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Renderer:end_color_threshold")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
+"values": [68.669]
 }
 
 [sub_resource type="Animation" id="Animation_tmrk2"]
 resource_name = "main_animation"
 length = 125.0
-step = 0.5
-tracks/0/type = "value"
+step = 0.05
+tracks/0/type = "audio"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Renderer:grid_size_x")
+tracks/0/path = NodePath("../AudioStreamPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [80.0, 20.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Renderer:grid_size_y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [80.0, 20.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Renderer:end_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 0, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Renderer:velocity_x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -33.33]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Renderer:noise_speed")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [20.05]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Renderer:zoom_x")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Renderer:zoom_y")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Renderer:velocity_y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Renderer:start_color_threshold")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.0]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Renderer:end_color_threshold")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/10/type = "audio"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../AudioStreamPlayer")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -265,7 +61,43 @@ tracks/10/keys = {
 }],
 "times": PackedFloat32Array(0)
 }
-tracks/10/use_blend = true
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Renderer:font_width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.95),
+"transitions": PackedFloat32Array(-2, 0.233258),
+"update": 0,
+"values": [250.162, 100.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Renderer:font_weight")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.95),
+"transitions": PackedFloat32Array(-2, 0.233258),
+"update": 0,
+"values": [113.208, 535.601]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Renderer:grid_size_x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.95),
+"transitions": PackedFloat32Array(-2, 0.233258),
+"update": 0,
+"values": [68.669, 40.293]
+}
 
 [sub_resource type="Animation" id="Animation_a7fa6"]
 resource_name = "my_animation"
@@ -276,6 +108,18 @@ _data = {
 "main_animation": SubResource("Animation_tmrk2"),
 "my_animation": SubResource("Animation_a7fa6")
 }
+
+[sub_resource type="FontVariation" id="FontVariation_hamw1"]
+base_font = ExtResource("3_6h6r8")
+variation_opentype = {
+2003072104: 212.739,
+2003265652: 350.478
+}
+
+[sub_resource type="Gradient" id="Gradient_ij2ds"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.118881, 0.762238)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -315,21 +159,17 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_84q8o")
-font = ExtResource("3_yw7wu")
-start_color = Color(0, 0, 0, 0)
-font_size = 16
+font = SubResource("FontVariation_hamw1")
+font_size = 81
 font_size_beat_curve = null
 letter_offset = 1
 letter_offset_beat_curve = null
-grid_size_x = 80.0
+grid_size_x = 68.669
 grid_size_x_beat_curve = null
-grid_size_y = 80.0
+grid_size_y = 83.924
 grid_size_y_beat_curve = null
-start_color_threshold = -1.0
-start_color_threshold_beat_curve = null
-end_color_threshold = 1.0
-end_color_threshold_beat_curve = null
-font_size = 16
+colors = SubResource("Gradient_ij2ds")
+font_size = 81
 font_size_beat_curve = null
 zoom_x = 1.0
 zoom_x_beat_curve = null
@@ -337,3 +177,5 @@ zoom_y = 1.0
 zoom_y_beat_curve = null
 noise_speed = 20.05
 noise_speed_beat_curve = null
+font_width = 212.739
+font_weight = 350.478
