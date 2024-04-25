@@ -22,31 +22,23 @@ var WIDTH_KEY = text_server.name_to_tag("wdth")
 
 var beat_bpm := 120
 var beat_curves: Dictionary = {}
+var beat_lengths: Dictionary = {}
 
 var noise: Noise
 var elapsed_time: float = 0.0
 var noise_time: float = 0.0
 var s_per_beat: float = 60.0 / beat_bpm
 var beat_offset: float = 0.0
+var beat_ratio: float = 0.0
 var offset := Vector2(0, 0)
 
 func _get_property_list():
-	var beat_matchable_knobs = [
-		&"font_size",
-		&"letter_offset",
-		&"grid_size_x", &"grid_size_y",
-		&"noise_speed",
-		&"zoom_x", &"zoom_y",
-		&"velocity_x", &"velocity_y"
-	]
-
 	var properties = []
 	export_range(properties, &"font_size", 1, 100, 1)
 	export_range(properties, &"letter_offset", 0, 10, 1)
 	export_range(properties, &"grid_size_x", 10.0, 300.0, 0.01, true)
 	export_range(properties, &"grid_size_y", 10.0, 300.0, 0.01, true)
 	export_colors(properties)
-	export_range(properties, &"font_size", 1, 100, 1)
 	export_range(properties, &"zoom_x", 0.01, 10.0, 0.01, true)
 	export_range(properties, &"zoom_y", 0.01, 10.0, 0.01, true)
 	export_range(properties, &"noise_speed", 1.0, 200.0, .01)
@@ -74,6 +66,10 @@ func _set(property: StringName, value: Variant):
 		beat_curves[property] = value
 		return true
 
+	if property.ends_with("_beat_length"):
+		beat_lengths[property] = value
+		return true
+
 	if property == "font_width":
 		font.variation_opentype = {
 			WIDTH_KEY: value,
@@ -93,11 +89,19 @@ func _set(property: StringName, value: Variant):
 func _get(property: StringName):
 	if property.ends_with("_beat_curve"):
 		return beat_curves.get(property)
-
-	if property == "font_width":
+	if property.ends_with("_beat_length"):
+		return beat_lengths.get(property)
+	if property == &"font_width":
 		return font.variation_opentype[WIDTH_KEY]
-	if property == "font_weight":
+	if property == &"font_weight":
 		return font.variation_opentype[WEIGHT_KEY]
+
+func synced_value(prop: StringName):
+	var curve = beat_curves.get(prop + "_beat_curve")
+	if curve == null:
+		return self[prop]
+	else:
+		return curve.sample_baked(beat_ratio) * self[prop]
 
 func export_range(properties: Array, prop_name: String, prop_min: float, prop_max: float, step: float=0.01, exp: bool=false):
 	properties.append({
@@ -128,6 +132,12 @@ func export_range(properties: Array, prop_name: String, prop_min: float, prop_ma
 		"usage": PROPERTY_USAGE_DEFAULT,
 		"hint": PROPERTY_HINT_RESOURCE_TYPE,
 		"hint_string": "Curve"
+	})
+
+	properties.append({
+		"name": prop_name + "_beat_length",
+		"type": TYPE_INT,
+		"usage": PROPERTY_USAGE_DEFAULT,
 	})
 
 func export_color(properties: Array, prop_name: String):
@@ -188,9 +198,10 @@ func _process(delta):
 	beat_offset += delta
 	if beat_offset >= s_per_beat:
 		beat_offset -= s_per_beat
+	beat_ratio = beat_offset / s_per_beat
 
-	offset.x += velocity_x * delta
-	offset.y += velocity_y * delta
+	offset.x += synced_value(&"velocity_x") * delta
+	offset.y += synced_value(&"velocity_y") * delta
 	queue_redraw()
 
 func _draw():
@@ -202,16 +213,20 @@ func _draw():
 	while y < size.y:
 		x = 0.0
 		while x < size.x:
-			var noise_val = noise.get_noise_3d(x * zoom_x + offset.x, y * zoom_y + offset.y, noise_time)
+			var noise_val = noise.get_noise_3d(
+				x * synced_value(&"zoom_x") + offset.x,
+				y * synced_value(&"zoom_y") + offset.y, noise_time
+			)
 			var i := int(letter_index % text.length())
 			var letter := text[i]
 			var unicode := text.unicode_at(i)
-			var char_size := font.get_char_size(unicode, font_size)
+			var synced_font_size := synced_value(&"font_size") as int
+			var char_size := font.get_char_size(unicode, synced_font_size)
 			draw_char(
 				font,
 				Vector2(x - char_size.x / 2, y + char_size.y / 2),
 				letter,
-				font_size,
+				synced_font_size,
 				colors.sample(remap(noise_val, -1, 1, 0, 1))
 			)
 

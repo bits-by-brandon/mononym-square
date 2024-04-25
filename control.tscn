@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ci0177kti8ixq"]
+[gd_scene load_steps=11 format=3 uid="uid://ci0177kti8ixq"]
 
 [ext_resource type="AudioStream" uid="uid://dvkb4qeak3sr7" path="res://assets/audio/music/lbH7Ox30BsUXnjfWBVrQurPhD6su98WGafYq7Cc1.mp3" id="1_omnmv"]
 [ext_resource type="Script" path="res://control_with_beats.gd" id="2_84q8o"]
 [ext_resource type="FontFile" uid="uid://cmx351ib5we4m" path="res://assets/fonts/Fixture/FixtureVariable.ttf" id="3_6h6r8"]
+[ext_resource type="Curve" uid="uid://btvt5kuy25ixn" path="res://curves/sine.tres" id="4_6wd0m"]
 
 [sub_resource type="Animation" id="Animation_radq2"]
 length = 0.001
@@ -49,7 +50,7 @@ length = 125.0
 step = 0.05
 tracks/0/type = "audio"
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../AudioStreamPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -159,8 +160,8 @@ grow_vertical = 2
 script = ExtResource("2_84q8o")
 font = SubResource("FontVariation_hamw1")
 text = "MONONYM                    "
-font_size = 38
-font_size_beat_curve = null
+font_size = 55
+font_size_beat_curve = ExtResource("4_6wd0m")
 letter_offset = 1
 letter_offset_beat_curve = null
 grid_size_x = 68.669
@@ -168,8 +169,6 @@ grid_size_x_beat_curve = null
 grid_size_y = 50.0
 grid_size_y_beat_curve = null
 colors = SubResource("Gradient_ij2ds")
-font_size = 38
-font_size_beat_curve = null
 zoom_x = 0.084
 zoom_x_beat_curve = null
 zoom_y = 0.152
